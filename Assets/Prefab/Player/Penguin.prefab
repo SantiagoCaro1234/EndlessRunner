@@ -236,7 +236,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  jumpForce: 10
+  gfxTransform: {fileID: 92174687265790928}
+  jumpForce: 15
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
