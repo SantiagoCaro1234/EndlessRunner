@@ -28,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 originalColliderOffset;
 
     public bool IsGrounded => isGrounded;
+    public bool IsJumping => isJumping;
+    public bool IsSliding => isSliding;
 
     public void Initialize(IInputProvider jumpProvider, ISlideInputProvider slideProvider)
     {
@@ -58,10 +60,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (jumpInput != null)
         {
-            if (isGrounded && jumpInput.wasJumpPressedThisFrame)
+            if (isGrounded && jumpInput.wasJumpPressedThisFrame && !isSliding)
             {
                 isJumping = true;
                 rb.velocity = Vector2.up * jumpForce;
+                Debug.Log("Jumping");
             }
 
             if (isJumping && jumpInput.isJumpPressed)
@@ -81,6 +84,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 isJumping = false;
                 jumpTimer = 0f;
+            }
+
+            if (isGrounded && !jumpInput.isJumpPressed)
+            {
+                isJumping = false;
             }
         }
 

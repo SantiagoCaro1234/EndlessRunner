@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 92174687265790928}
   - component: {fileID: 4821090334456405930}
+  - component: {fileID: 5881698597076042472}
   m_Layer: 3
   m_Name: GFX
   m_TagString: Untagged
@@ -84,6 +85,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &5881698597076042472
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4602457368510006142}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 81b04213b297ca4439aba8ebf8e4ed5e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7475631421603068164
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,6 +149,8 @@ GameObject:
   - component: {fileID: 2879334179565638298}
   - component: {fileID: 8493904876046709443}
   - component: {fileID: 5673491131411278405}
+  - component: {fileID: 2019716623509880025}
+  - component: {fileID: 6693933901471817871}
   m_Layer: 3
   m_Name: Penguin
   m_TagString: Player
@@ -244,5 +268,35 @@ MonoBehaviour:
   feetPos: {fileID: 3469588265688906598}
   groundDistanceThreshold: 0.03
   jumpTime: 0.1
+  slideDuration: 0.5
+  slideColliderSize: {x: 1, y: 0.5}
+  slideColliderOffset: {x: 0.25, y: -0.5}
   isGrounded: 0
   isJumping: 0
+  isSliding: 0
+--- !u!114 &2019716623509880025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8166521228962862693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f3ea7735495a2f49a99c9c89fcc5899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animManager: {fileID: 6693933901471817871}
+  playerMovement: {fileID: 5673491131411278405}
+--- !u!114 &6693933901471817871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8166521228962862693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23fdb26e5c1f42544a1fda489eb95bbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

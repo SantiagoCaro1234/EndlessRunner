@@ -4,11 +4,11 @@ public class InputManager : MonoBehaviour
 {
     [SerializeField] private PlayerMovement player;
 
-    [Header("ajustes de salto")]
+    [Header("Jump Settings")]
     [SerializeField] private float tapDelay = 0.1f;
     [SerializeField] private float maxMoveBeforeCancel = 20f;
 
-    [Header("ajustes de swipe")]
+    [Header("Swipe Settings")]
     [SerializeField] private float minSwipeDistance = 150f;
     [SerializeField] private float maxSwipeTime = 0.5f;
 
