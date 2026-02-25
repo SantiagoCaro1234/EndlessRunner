@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 5673491131411278405}
   - component: {fileID: 2019716623509880025}
   - component: {fileID: 6693933901471817871}
+  - component: {fileID: 403679697139109166}
   m_Layer: 3
   m_Name: Penguin
   m_TagString: Player
@@ -300,3 +301,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23fdb26e5c1f42544a1fda489eb95bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &403679697139109166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8166521228962862693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6a0d8b5b88b62a47b17fe35e7770e8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthPoints: 5
+  isAlive: 1
