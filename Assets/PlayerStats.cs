@@ -1,20 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerStats : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int healthPoints = 5;
+    [SerializeField] private int healthPoints = 3;
     [SerializeField] private bool isAlive = true;
+
+    public event Action OnDamageTaken;
 
     public void TakeDamage(int damageTaken)
     {
-        if (healthPoints <= 0) Die();
-        else healthPoints -= damageTaken;
+        if (healthPoints <= 0) return;
+
+        healthPoints -= damageTaken;
+        OnDamageTaken?.Invoke();
+
+        if (healthPoints <= 0)
+        {
+            Die();
+        }
     }
 
     public void Die()
     {
+        if (!isAlive) return;
+        isAlive = false;
+        GameManager.Instance.GameOver();
         Debug.Log($"{gameObject.name} has Died");
     }
 }

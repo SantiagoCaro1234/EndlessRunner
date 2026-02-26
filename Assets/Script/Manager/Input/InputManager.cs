@@ -37,7 +37,7 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        // actualiza ambos proveedores cada frame
+        if (!GameManager.Instance.isPlaying) return;
         jumpInput?.Update();
         slideInput?.Update();
     }

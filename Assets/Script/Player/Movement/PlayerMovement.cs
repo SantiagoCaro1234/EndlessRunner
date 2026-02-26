@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -12,9 +13,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpTime = 0.3f;
 
     [SerializeField] private float slideDuration = 0.5f;
+    [SerializeField] private float slideCooldown= 0.2f;
     [SerializeField] private Vector2 slideColliderSize = new Vector2(1, .5f);
     [SerializeField] private Vector2 slideColliderOffset = new Vector2(0, -.25f);
     [SerializeField] private bool isProlongingSlide;
+    [SerializeField] private bool slideOnCooldown;
 
     [SerializeField] private bool isGrounded;
     [SerializeField] private bool isJumping;
@@ -98,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
         if (slideInput != null)
         {
             // activo el slide solo si estoy en suelo, no estoy ya deslizando y se detecto el gesto
-            if (isGrounded && !isSliding && slideInput.wasSlideDownThisFrame)
+            if (isGrounded && !isSliding && !slideOnCooldown && slideInput.wasSlideDownThisFrame)
             {
                 Slide();
             }
@@ -142,9 +145,17 @@ public class PlayerMovement : MonoBehaviour
         }
 
         isSliding = false;
-
         srenderer.sortingOrder = 0;
         srenderer.sortingLayerName = "Entity";
+
+        StartCoroutine(SlideCooldownRoutine());
+    }
+
+    private IEnumerator SlideCooldownRoutine()
+    {
+        slideOnCooldown = true;
+        yield return new WaitForSeconds(slideCooldown);
+        slideOnCooldown = false;
     }
 
     public void SetSlideProlongation(bool prolonging)

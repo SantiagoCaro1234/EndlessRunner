@@ -271,8 +271,11 @@ MonoBehaviour:
   groundDistanceThreshold: 0.03
   jumpTime: 0.1
   slideDuration: 0.5
+  slideCooldown: 0.2
   slideColliderSize: {x: 1, y: 0.5}
   slideColliderOffset: {x: 0.25, y: -0.5}
+  isProlongingSlide: 0
+  slideOnCooldown: 0
   isGrounded: 0
   isJumping: 0
   isSliding: 0

@@ -5,12 +5,17 @@ public class PlayerAnimationHandler : MonoBehaviour
 {
     [SerializeField] private AnimationManager animManager; // referencia al manager generico
     [SerializeField] private PlayerMovement playerMovement; // referencia al movimiento del jugador
+    
+    #region Game Params
+    private const string PARAM_SPEED = "speed";
+    private const string PARAM_GAMESTARTED = "gameStarted";
+    #endregion
 
-    // nombres de parametros del animator (constantes para evitar errores)
+    #region Movement Params
     private const string PARAM_IS_GROUNDED = "isGrounded";
     private const string PARAM_IS_JUMPING = "isJumping";
     private const string PARAM_IS_SLIDING = "isSliding";
-    private const string PARAM_SPEED = "speed";
+    #endregion
 
     private void Start()
     {
@@ -20,9 +25,10 @@ public class PlayerAnimationHandler : MonoBehaviour
 
     private void Update()
     {
-        if (animManager == null || playerMovement == null) return;
+        if ((animManager == null || playerMovement == null)) return;
 
         // actualiza parametros segun el estado del jugador
+        animManager.SetBool(PARAM_GAMESTARTED, GameManager.Instance.isPlaying);
         animManager.SetBool(PARAM_IS_GROUNDED, playerMovement.IsGrounded);
         animManager.SetBool(PARAM_IS_JUMPING, playerMovement.IsJumping);
         animManager.SetBool(PARAM_IS_SLIDING, playerMovement.IsSliding);

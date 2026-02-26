@@ -326,7 +326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleDamage: 0
   timeUntilDespawn: 10
-  timeUntilDespawnAfterHit: 1
+  timeUntilDespawnAfterHit: 2
 --- !u!61 &557522364720090342
 BoxCollider2D:
   m_ObjectHideFlags: 0

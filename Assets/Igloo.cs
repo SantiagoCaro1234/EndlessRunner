@@ -45,6 +45,6 @@ public class Igloo : Obstacle
 
     protected override void OnCollisionFX()
     {
-        // efectos visuales o sonoros (opcional)
+        // sfx
     }
 }
