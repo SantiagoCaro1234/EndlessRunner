@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,11 +29,14 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject gameOverMenu;
 
+    public event Action<float> OnScoreChanged;
+
     private void Update()
     {
         if (isPlaying)
         {
             currentScore += (Time.deltaTime * scoreMultiplier);
+            OnScoreChanged?.Invoke(currentScore);
         }
 
         if (Input.GetKeyDown(KeyCode.K)) isPlaying = true; // debug

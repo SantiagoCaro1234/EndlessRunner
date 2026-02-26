@@ -3358,10 +3358,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleData:
-  - pool: {fileID: 1296747551}
-    yOffset: 0
   - pool: {fileID: 1472397808}
-    yOffset: 0.9
+    config: {fileID: 11400000, guid: ac9a5df825bce3146bafed05a3facf79, type: 2}
+  - pool: {fileID: 1296747551}
+    config: {fileID: 11400000, guid: 3570b4041f2912b478a39112d48aa86a, type: 2}
   obstacleSpawnTime: 3
   obstacleSpeed: 4
 --- !u!1 &708997247 stripped
@@ -3670,37 +3670,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50e911c924bd12042a0c3d19d52ff881, type: 3}
---- !u!1 &930064669
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 930064670}
-  m_Layer: 0
-  m_Name: ObstacleSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &930064670
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 930064669}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.95, y: -4.06, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &970520490
 GameObject:
   m_ObjectHideFlags: 0
@@ -5602,8 +5571,39 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1321864753764780920, guid: b05081565e410d5408fb93706eb3acd3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2790983948316645965}
   m_SourcePrefab: {fileID: 100100000, guid: b05081565e410d5408fb93706eb3acd3, type: 3}
+--- !u!1 &2790983948316645964 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1321864753764780920, guid: b05081565e410d5408fb93706eb3acd3, type: 3}
+  m_PrefabInstance: {fileID: 2790983948316645963}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2790983948316645965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2790983948316645964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96bd2e89d5976314c90ba5cdc7566fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawner: {fileID: 671071301}
+  levels:
+  - minScore: 1
+    obstacleSpeed: 6
+    obstacleSpawnTime: 1.5
+  - minScore: 50
+    obstacleSpeed: 10
+    obstacleSpawnTime: 2
+  - minScore: 100
+    obstacleSpeed: 14
+    obstacleSpawnTime: 2
 --- !u!1001 &6531282488584425358
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5845,11 +5845,10 @@ SceneRoots:
   m_Roots:
   - {fileID: 823851348}
   - {fileID: 2790983948316645963}
+  - {fileID: 671071300}
   - {fileID: 6740624979446122946}
   - {fileID: 1838508303}
   - {fileID: 1563163617}
-  - {fileID: 930064670}
-  - {fileID: 671071300}
   - {fileID: 970520491}
   - {fileID: 519420032}
   - {fileID: 1742241843}

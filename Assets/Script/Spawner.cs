@@ -1,19 +1,13 @@
 using UnityEngine;
 
-[System.Serializable]
-public class PooledObstacleData
-{
-    public ObstaclePool pool;
-    public float yOffset;
-}
-
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private PooledObstacleData[] obstacleData;
+    [SerializeField] private ObstacleSpawnData[] obstacleData;
     public float obstacleSpawnTime = 2f;
     public float obstacleSpeed = 1f;
 
     private float timeUntilObstacleSpawn;
+    private ObstacleSpawnData lastSelected; // para controlar repeticion
 
     private void Update()
     {
@@ -31,14 +25,30 @@ public class Spawner : MonoBehaviour
     {
         if (obstacleData.Length == 0) return;
 
-        var selected = obstacleData[Random.Range(0, obstacleData.Length)];
-        if (selected.pool == null) return;
+        ObstacleSpawnData selected = null;
+        int attempts = 0;
+        int maxAttempts = 10;
 
-        Vector3 spawnPos = transform.position + new Vector3(0, selected.yOffset, 0);
+        do
+        {
+            selected = obstacleData[Random.Range(0, obstacleData.Length)];
+            attempts++;
+            if (attempts >= maxAttempts)
+            {
+                selected = lastSelected ?? obstacleData[0];
+                break;
+            }
+        } while (!selected.config.repeatable && selected == lastSelected && obstacleData.Length > 1);
+
+        if (selected.pool == null || selected.config == null) return;
+
+        Vector3 spawnPos = transform.position + new Vector3(0, selected.config.yOffset, 0);
         Obstacle obstacle = selected.pool.GetObstacle(spawnPos, Quaternion.identity);
 
         Rigidbody2D rb = obstacle.GetComponent<Rigidbody2D>();
         if (rb != null)
             rb.velocity = Vector2.left * obstacleSpeed;
+
+        lastSelected = selected;
     }
 }
