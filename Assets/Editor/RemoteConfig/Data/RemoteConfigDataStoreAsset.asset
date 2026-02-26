@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"b3701f65-bbcf-4506-aa98-406e2bc06644\"\r\n   
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"7f661ead-56ec-467d-8248-e886c9d2ba80\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"Currency\",\r\n      \"type\": \"float\",\r\n     
-    \"value\": 0.0\r\n    }\r\n  }\r\n]"
-  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"b3701f65-bbcf-4506-aa98-406e2bc06644\"\r\n   
+    \"value\": 150.0\r\n    }\r\n  }\r\n]"
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"7f661ead-56ec-467d-8248-e886c9d2ba80\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"Currency\",\r\n      \"type\": \"float\",\r\n     
-    \"value\": 0.0\r\n    }\r\n  }\r\n]"
+    \"value\": 150.0\r\n    }\r\n  }\r\n]"
   _environments: "[\r\n  {\r\n    \"projectId\": \"8e60d9d1-4a36-43ca-91e5-fa744aadcdae\",\r\n   
     \"name\": \"production\",\r\n    \"id\": \"5e9058aa-412c-46c0-a3fc-a96075aac732\",\r\n   
     \"isDefault\": true,\r\n    \"createdAt\": \"2026-02-17T10:52:17Z\",\r\n    \"updatedAt\":

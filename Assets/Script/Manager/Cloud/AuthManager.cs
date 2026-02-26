@@ -10,6 +10,9 @@ public class AuthManager : MonoBehaviour
     private bool isAuthenticated = false;
     public bool IsAuthenticated => isAuthenticated;
 
+    // evento para notificar cuando la autenticacion se completa
+    public event System.Action OnAuthenticationComplete;
+
     private void Awake()
     {
         if (Instance == null)
@@ -26,6 +29,8 @@ public class AuthManager : MonoBehaviour
     async void Start()
     {
         await UnityServices.InitializeAsync();
+        // opcional: auto-login al iniciar
+        await SignInAnonymously();
     }
 
     public async void SignIn()
@@ -41,6 +46,9 @@ public class AuthManager : MonoBehaviour
             isAuthenticated = true;
             Debug.Log("Sign In Successful");
             Debug.Log($"Player id: {AuthenticationService.Instance.PlayerId}");
+
+            // dispara el evento para que otros sistemas (como remote config) reaccionen
+            OnAuthenticationComplete?.Invoke();
         }
         catch (AuthenticationException ex)
         {

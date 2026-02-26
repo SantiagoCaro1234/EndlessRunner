@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
 
     public bool isPlaying = default;
 
+    [SerializeField] GameObject gameOverMenu;
+
     private void Update()
     {
         if (isPlaying)
@@ -45,6 +47,7 @@ public class GameManager : MonoBehaviour
     {
         currentScore = 0f;
         isPlaying = false;
+        MenuManager.Instance.GoToMenu(gameOverMenu);
     }
 
     public string DisplayedScore()
