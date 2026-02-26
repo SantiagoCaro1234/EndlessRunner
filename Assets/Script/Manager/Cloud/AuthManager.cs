@@ -2,13 +2,26 @@ using UnityEngine;
 using Unity.Services.Core;
 using Unity.Services.Authentication;
 using System.Threading.Tasks;
-using UnityEngine.UI;
 
 public class AuthManager : MonoBehaviour
 {
-    public Text logTxt;
+    public static AuthManager Instance { get; private set; }
 
-    public GameObject nextMenu;
+    private bool isAuthenticated = false;
+    public bool IsAuthenticated => isAuthenticated;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     async void Start()
     {
@@ -17,31 +30,22 @@ public class AuthManager : MonoBehaviour
 
     public async void SignIn()
     {
-        await signInAnonymous();
+        await SignInAnonymously();
     }
 
-    async Task signInAnonymous()
+    async Task SignInAnonymously()
     {
         try
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
-
+            isAuthenticated = true;
             Debug.Log("Sign In Successful");
             Debug.Log($"Player id: {AuthenticationService.Instance.PlayerId}");
         }
         catch (AuthenticationException ex)
         {
-            Debug.Log($"Sign In failed");
+            Debug.Log("Sign In failed");
             Debug.LogException(ex);
         }
-    }
-
-    public void SignedIn()
-    {
-        if (AuthenticationService.Instance.IsSignedIn)
-        {
-            Debug.Log("Player Signed in");
-            //MenuManager.Instance.GoToMenu(nextMenu);
-        };
     }
 }

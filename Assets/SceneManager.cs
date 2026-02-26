@@ -7,15 +7,7 @@ public class SceneManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
+        Instance = this;
     }
 
     public void LoadScene(string sceneName)
@@ -57,9 +49,6 @@ public class SceneManager : MonoBehaviour
     {
         Scene currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
         UnityEngine.SceneManagement.SceneManager.LoadScene(currentScene.name);
-
-
-        DontDestroyOnLoad(this.gameObject);
     }
 
     public void QuitGame()
