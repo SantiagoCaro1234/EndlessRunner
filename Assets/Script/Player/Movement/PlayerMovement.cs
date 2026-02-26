@@ -4,6 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform gfxTransform;
+    [SerializeField] private SpriteRenderer srenderer;
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform feetPos;
@@ -13,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float slideDuration = 0.5f;
     [SerializeField] private Vector2 slideColliderSize = new Vector2(1, .5f);
     [SerializeField] private Vector2 slideColliderOffset = new Vector2(0, -.25f);
+    [SerializeField] private bool isProlongingSlide;
 
     [SerializeField] private bool isGrounded;
     [SerializeField] private bool isJumping;
@@ -101,15 +103,15 @@ public class PlayerMovement : MonoBehaviour
                 Slide();
             }
 
-            // mientras estoy deslizando, controlo el temporizador
             if (isSliding)
             {
-                slideTimer -= Time.deltaTime;
-                if (slideTimer <= 0f)
+                if (!isProlongingSlide)
                 {
-                    // termino el slide: restauro el collider original
-                    EndSlide();
+                    slideTimer -= Time.deltaTime;
+                    if (slideTimer <= 0f)
+                        EndSlide();
                 }
+                // si isProlongingSlide es true, el timer no disminuye
             }
         }
     }
@@ -126,8 +128,8 @@ public class PlayerMovement : MonoBehaviour
         isSliding = true;
         slideTimer = slideDuration;
 
-        // aqui se podria activar una animacion de slide
-        Debug.Log("slide iniciado");
+        srenderer.sortingOrder = 1;
+        srenderer.sortingLayerName = "Middleground";
     }
 
     private void EndSlide()
@@ -141,6 +143,12 @@ public class PlayerMovement : MonoBehaviour
 
         isSliding = false;
 
-        Debug.Log("slide terminado");
+        srenderer.sortingOrder = 0;
+        srenderer.sortingLayerName = "Entity";
+    }
+
+    public void SetSlideProlongation(bool prolonging)
+    {
+        isProlongingSlide = prolonging;
     }
 }

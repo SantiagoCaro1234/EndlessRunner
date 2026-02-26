@@ -9,7 +9,7 @@ public class DoubleSpike : Obstacle
     {
         base.OnTriggerEnter2D(collision);
     }
-    protected override void OnCollisionVFX()
+    protected override void OnCollisionFX()
     {
         print($"{gameObject.name} VFX's");
     }

@@ -1,45 +1,125 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Obstacle : MonoBehaviour
 {
     [SerializeField] protected int obstacleDamage;
+    [SerializeField] protected float timeUntilDespawn = 3f; // tiempo maximo de vida
+    [SerializeField] protected float timeUntilDespawnAfterHit = 0.5f;
 
-    [SerializeField] protected float timeUntilDespawn = 3f;
+    protected BoxCollider2D boxCollider;
+    protected Rigidbody2D rb;
+    private ObstaclePool pool;
+    private Coroutine despawnCoroutine;
+    private Coroutine returnAfterHitCoroutine;
 
-    BoxCollider2D boxCollider;
-
-    private void Awake()
+    protected virtual void Awake()
     {
-        Initialize();
+        // obtener referencias de componentes
+        boxCollider = GetComponentInChildren<BoxCollider2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    protected virtual void Initialize()
+    // llamado por el pool cuando se instancia o se reutiliza
+    public void Init(ObstaclePool owner)
     {
-        boxCollider = GetComponentInChildren<BoxCollider2D>();
-        DespawnAfterSeconds(timeUntilDespawn);
+        pool = owner;
+    }
+
+    // llamado por el pool cuando se activa el obstaculo
+    public virtual void OnSpawn()
+    {
+        // habilitar collider
+        if (boxCollider != null)
+            boxCollider.enabled = true;
+
+        if (returnAfterHitCoroutine != null)
+        {
+            StopCoroutine(returnAfterHitCoroutine);
+            returnAfterHitCoroutine = null;
+        }
+
+        // iniciar corrutina de despawn
+        if (despawnCoroutine != null)
+            StopCoroutine(despawnCoroutine);
+        despawnCoroutine = StartCoroutine(DespawnAfterTime());
+    }
+
+    // cuando el obstaculo sale de la pantalla
+    private void OnBecameInvisible()
+    {
+        ReturnToPool();
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<IDamageable>().TakeDamage(obstacleDamage);
+            var damageable = collision.GetComponent<IDamageable>();
+            if (damageable != null)
+                damageable.TakeDamage(obstacleDamage);
+
+            // desactivar collider para evitar multiples golpes
+            if (boxCollider != null)
+                boxCollider.enabled = false;
+
+            // detener la corrutina de despawn por tiempo (ya no es necesaria)
+            if (despawnCoroutine != null)
+            {
+                StopCoroutine(despawnCoroutine);
+                despawnCoroutine = null;
+            }
+
+            // efectos de colision
+            OnCollisionFX();
+
+            // iniciar corrutina para devolver al pool despues de un breve retraso
+            if (returnAfterHitCoroutine != null)
+                StopCoroutine(returnAfterHitCoroutine);
+            returnAfterHitCoroutine = StartCoroutine(ReturnAfterHit());
+        }
+    }
+
+    protected abstract void OnCollisionFX();
+
+    private IEnumerator DespawnAfterTime()
+    {
+        yield return new WaitForSeconds(timeUntilDespawn);
+        ReturnToPool();
+    }
+
+    private IEnumerator ReturnAfterHit()
+    {
+        yield return new WaitForSeconds(timeUntilDespawnAfterHit);
+        returnAfterHitCoroutine = null;
+        ReturnToPool();
+    }
+
+    protected void ReturnToPool()
+    {
+        // detener cualquier corrutina activa
+        if (despawnCoroutine != null)
+        {
+            StopCoroutine(despawnCoroutine);
+            despawnCoroutine = null;
+        }
+        if (returnAfterHitCoroutine != null)
+        {
+            StopCoroutine(returnAfterHitCoroutine);
+            returnAfterHitCoroutine = null;
         }
 
-        boxCollider.enabled = false;
-        OnCollisionVFX();
+        if (rb != null)
+            rb.velocity = Vector2.zero;
+
+        pool?.ReturnObstacle(this);
     }
 
-    protected virtual void DespawnAfterSeconds(float seconds)
+    private void OnDestroy()
     {
-        StartCoroutine(DespawnCoroutine(seconds));
-    }
-    protected abstract void OnCollisionVFX();
-    protected IEnumerator DespawnCoroutine(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        Destroy(this.gameObject);
+        if (despawnCoroutine != null)
+            StopCoroutine(despawnCoroutine);
+        if (returnAfterHitCoroutine != null)
+            StopCoroutine(returnAfterHitCoroutine);
     }
 }

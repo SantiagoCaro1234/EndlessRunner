@@ -1,10 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+[System.Serializable]
+public class PooledObstacleData
+{
+    public ObstaclePool pool;
+    public float yOffset;
+}
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] obstaclePrefabs;
+    [SerializeField] private PooledObstacleData[] obstacleData;
     public float obstacleSpawnTime = 2f;
     public float obstacleSpeed = 1f;
 
@@ -12,14 +17,8 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
-        SpawnLoop();
-    }
-
-    private void SpawnLoop()
-    {
         timeUntilObstacleSpawn += Time.deltaTime;
-
-        if(timeUntilObstacleSpawn >= obstacleSpawnTime)
+        if (timeUntilObstacleSpawn >= obstacleSpawnTime)
         {
             Spawn();
             timeUntilObstacleSpawn = 0f;
@@ -28,12 +27,16 @@ public class Spawner : MonoBehaviour
 
     private void Spawn()
     {
-        GameObject obstacleToSpawn = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
+        if (obstacleData.Length == 0) return;
 
-        GameObject spawnedObstacle = Instantiate(obstacleToSpawn, transform.position, Quaternion.identity);
+        var selected = obstacleData[Random.Range(0, obstacleData.Length)];
+        if (selected.pool == null) return;
 
-        Rigidbody2D obstacleRB = spawnedObstacle.GetComponent<Rigidbody2D>();
-        obstacleRB.velocity = Vector2.left * obstacleSpeed;
+        Vector3 spawnPos = transform.position + new Vector3(0, selected.yOffset, 0);
+        Obstacle obstacle = selected.pool.GetObstacle(spawnPos, Quaternion.identity);
 
+        Rigidbody2D rb = obstacle.GetComponent<Rigidbody2D>();
+        if (rb != null)
+            rb.velocity = Vector2.left * obstacleSpeed;
     }
 }

@@ -262,6 +262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   gfxTransform: {fileID: 92174687265790928}
+  srenderer: {fileID: 4821090334456405930}
   jumpForce: 15
   groundLayer:
     serializedVersion: 2
