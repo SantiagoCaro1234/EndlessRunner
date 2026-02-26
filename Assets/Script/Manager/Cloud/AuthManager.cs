@@ -28,7 +28,6 @@ public class AuthManager : MonoBehaviour
 
             Debug.Log("Sign In Successful");
             Debug.Log($"Player id: {AuthenticationService.Instance.PlayerId}");
-            logTxt.text = "Player id:" + AuthenticationService.Instance.PlayerId + "Successfully Logged In!";
         }
         catch (AuthenticationException ex)
         {
