@@ -7,7 +7,7 @@ public class Spawner : MonoBehaviour
     public float obstacleSpeed = 1f;
 
     private float timeUntilObstacleSpawn;
-    private ObstacleSpawnData lastSelected; // para controlar repeticion
+    private ObstacleSpawnData lastSelected;
 
     private void Update()
     {
@@ -27,7 +27,9 @@ public class Spawner : MonoBehaviour
 
         ObstacleSpawnData selected = null;
         int attempts = 0;
-        int maxAttempts = 10;
+        int maxAttempts = 20; // aumentamos un poco para dar más oportunidades
+
+        float currentScore = GameManager.Instance.currentScore;
 
         do
         {
@@ -38,7 +40,10 @@ public class Spawner : MonoBehaviour
                 selected = lastSelected ?? obstacleData[0];
                 break;
             }
-        } while (!selected.config.repeatable && selected == lastSelected && obstacleData.Length > 1);
+        } while (
+            (!selected.config.repeatable && selected == lastSelected && obstacleData.Length > 1) ||
+            currentScore < selected.config.minScoreToSpawn // no cumple el mínimo de puntuación
+        );
 
         if (selected.pool == null || selected.config == null) return;
 

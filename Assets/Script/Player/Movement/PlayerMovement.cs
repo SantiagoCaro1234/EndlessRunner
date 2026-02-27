@@ -32,6 +32,13 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 originalColliderSize;
     private Vector2 originalColliderOffset;
 
+    public float JumpForce => jumpForce;
+
+    public void SetJumpForce(float newForce)
+    {
+        jumpForce = newForce;
+    }
+
     public bool IsGrounded => isGrounded;
     public bool IsJumping => isJumping;
     public bool IsSliding => isSliding;

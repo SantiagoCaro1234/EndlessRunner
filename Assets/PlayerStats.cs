@@ -21,6 +21,12 @@ public class PlayerStats : MonoBehaviour, IDamageable
         }
     }
 
+    public void AddHealth(int amount)
+    {
+        healthPoints += amount;
+        Debug.Log($"Vida actual: {healthPoints}");
+    }
+
     public void Die()
     {
         if (!isAlive) return;

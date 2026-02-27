@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e98446df7cb6cb645870c3065ace3680, type: 3}
+  m_Name: SO_PUD_Heart
+  m_EditorClassIdentifier: 
+  powerUpName: JumpBuff
+  prefab: {fileID: 7593792772592887376, guid: b32de7f740bc83a469e305cc14e5d6bc, type: 3}
+  effectType: 0
+  effectValue: 0
+  effectDuration: 0
+  icon: {fileID: 0}
