@@ -8,15 +8,21 @@ public class GameManager : MonoBehaviour
 
     public float currentScore = 0f;
     public float scoreMultiplier = 1f;
+    //public float currencyMultiplier = 1f;
     public bool isPlaying = false;
 
-    [SerializeField] private GameObject gameOverMenu; // asignar en el inspector
+    public int earnedCoins;
+
+    private int lastCoinScoreThreshold;
+
+    [SerializeField] private GameObject gameOverMenu;
 
     public event Action<float> OnScoreChanged;
 
     private void Awake()
     {
         Instance = this;
+        lastCoinScoreThreshold = 0;
     }
 
     private void Update()
@@ -24,11 +30,19 @@ public class GameManager : MonoBehaviour
         if (isPlaying)
         {
             currentScore += Time.deltaTime * scoreMultiplier;
+
+            // ganar monedas cada 5 puntos
+            int currentThreshold = (Mathf.FloorToInt((currentScore / 5f)));
+            if (currentThreshold > lastCoinScoreThreshold)
+            {
+                int coinsToAdd = currentThreshold - lastCoinScoreThreshold;
+                earnedCoins = coinsToAdd;
+                CurrencyManager.Instance?.AddCurrency(coinsToAdd);
+                lastCoinScoreThreshold = currentThreshold;
+            }
+
             OnScoreChanged?.Invoke(currentScore);
-
         }
-
-        if (Input.GetKeyDown(KeyCode.K)) isPlaying = true; // debug
     }
 
     public void StartGame()
@@ -45,6 +59,7 @@ public class GameManager : MonoBehaviour
 
         currentScore = 0f;
         isPlaying = false;
+        lastCoinScoreThreshold = 0; // reiniciar contador de monedas
     }
 
     public void Retry()

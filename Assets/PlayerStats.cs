@@ -3,7 +3,7 @@ using System;
 
 public class PlayerStats : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int healthPoints = 3;
+    [SerializeField] public int healthPoints = 3;
     [SerializeField] private bool isAlive = true;
 
     public event Action OnDamageTaken;
