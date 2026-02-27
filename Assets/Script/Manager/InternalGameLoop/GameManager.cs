@@ -1,41 +1,29 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-	#region Singleton
-	public static GameManager Instance;
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-    }
-    #endregion
+    public static GameManager Instance { get; private set; }
 
     public float currentScore = 0f;
     public float scoreMultiplier = 1f;
+    public bool isPlaying = false;
 
-    public bool isPlaying = default;
-
-    [SerializeField] GameObject gameOverMenu;
+    [SerializeField] private GameObject gameOverMenu; // asignar en el inspector
 
     public event Action<float> OnScoreChanged;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Update()
     {
         if (isPlaying)
         {
-            currentScore += (Time.deltaTime * scoreMultiplier);
+            currentScore += Time.deltaTime * scoreMultiplier;
             OnScoreChanged?.Invoke(currentScore);
         }
 
@@ -49,9 +37,19 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        if (gameOverMenu != null)
+            MenuManager.Instance.GoToMenu(gameOverMenu);
+        else
+            Debug.LogError("GameOverMenu no asignado en el GameManager");
+
         currentScore = 0f;
         isPlaying = false;
-        MenuManager.Instance.GoToMenu(gameOverMenu);
+    }
+
+    public void Retry()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadSceneAsync(currentScene.name);
     }
 
     public string DisplayedScore()
