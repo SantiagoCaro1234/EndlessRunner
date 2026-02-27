@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
         {
             currentScore += Time.deltaTime * scoreMultiplier;
             OnScoreChanged?.Invoke(currentScore);
+
         }
 
         if (Input.GetKeyDown(KeyCode.K)) isPlaying = true; // debug
@@ -48,8 +49,8 @@ public class GameManager : MonoBehaviour
 
     public void Retry()
     {
-        Scene currentScene = SceneManager.GetActiveScene();
-        SceneManager.LoadSceneAsync(currentScene.name);
+        Scene currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(currentScene.name);
     }
 
     public string DisplayedScore()
