@@ -6219,13 +6219,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hatAnchor: {fileID: 1381349496}
-  hatData:
-  - {fileID: 11400000, guid: b2f39d0777f9a4044964c982b74b08b1, type: 2}
-  - {fileID: 11400000, guid: cbbd84f8c9133664d921bd78c2728f8c, type: 2}
-  - {fileID: 11400000, guid: 3a984b6552e48384090b359cc784ff68, type: 2}
-  - {fileID: 11400000, guid: 165e455380b37cd4da80b989d933833a, type: 2}
-  - {fileID: 11400000, guid: 0e7f6f251b5dc8241b20218f6078a4f5, type: 2}
-  defaultHatIndex: 0
 --- !u!1001 &1997449405
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6645,6 +6638,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 369406936150433538, guid: 8786f1b62d7401743b1b3c854f07302b, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1931065167218703901, guid: 8786f1b62d7401743b1b3c854f07302b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.069
@@ -6747,7 +6744,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6344107618619209651, guid: 8786f1b62d7401743b1b3c854f07302b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7393314737998532045, guid: 8786f1b62d7401743b1b3c854f07302b, type: 3}
       propertyPath: m_IsActive

@@ -5,5 +5,4 @@ public class HatData : ScriptableObject
 {
     public string hatName;
     public int price;
-    public Sprite hatSprite;
 }

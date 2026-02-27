@@ -23,5 +23,6 @@ public class CurrencyDisplay : MonoBehaviour
     {
         if (currencyText != null)
             currencyText.text = newAmount.ToString();
+        Debug.Log($"currency mostrandose {CurrencyManager.Instance.GetCurrency()}");
     }
 }

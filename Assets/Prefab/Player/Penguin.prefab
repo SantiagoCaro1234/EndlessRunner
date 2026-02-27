@@ -157,7 +157,7 @@ SpriteRenderer:
   m_SortingLayerID: -312938247
   m_SortingLayer: 4
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 731867517a430014189576f2c7e17e03, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c66d2387ca5261948a0636cbe7b89bf6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -389,10 +389,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2006529533285960903}
-  - {fileID: 4070044141868177251}
+  - {fileID: 2419973328085994746}
   - {fileID: 8632964901808277535}
   - {fileID: 1931065167218703901}
-  - {fileID: 2419973328085994746}
+  - {fileID: 4070044141868177251}
   m_Father: {fileID: 92174687265790928}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6344107618619209651
